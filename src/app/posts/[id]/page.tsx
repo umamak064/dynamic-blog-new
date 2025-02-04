@@ -14,7 +14,14 @@ const blogPosts: Record<string, { title: string; content: string; image: string 
   },
 };
 
-export default function BlogPost({ params }: { params: { id: string } }) {
+// Define the correct type for the props
+interface BlogPostProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function BlogPost({ params }: BlogPostProps) {
   const post = blogPosts[params.id];
   if (!post) return notFound();
 
