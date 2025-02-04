@@ -15,17 +15,17 @@ const blogPosts: Record<string, { title: string; content: string; image: string 
   },
 };
 
-// PageProps type, which should include params (id as a string)
+// Define the type for the params object
 interface BlogPostProps {
   params: {
     id: string;
   };
 }
 
-// BlogPost component with correct types for params
+// BlogPost component
 export default function BlogPost({ params }: BlogPostProps) {
   const post = blogPosts[params.id];
-  
+
   if (!post) return notFound();
 
   return (
