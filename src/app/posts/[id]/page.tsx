@@ -22,6 +22,13 @@ interface BlogPostProps {
   };
 }
 
+// Generate static paths for the dynamic route
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((id) => ({
+    id,
+  }));
+}
+
 // BlogPost component
 export default function BlogPost({ params }: BlogPostProps) {
   const post = blogPosts[params.id];
