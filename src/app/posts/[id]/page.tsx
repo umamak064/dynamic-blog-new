@@ -15,23 +15,16 @@ const blogPosts: Record<string, { title: string; content: string; image: string 
   },
 };
 
-// Define the type for the params object
-interface BlogPostProps {
-  params: {
-    id: string;
-  };
-}
-
-// Generate static paths for the dynamic route
-export async function generateStaticParams() {
-  return Object.keys(blogPosts).map((id) => ({
-    id,
-  }));
+// Define PageProps to match the expected type
+interface PageProps {
+  params: Promise<{ id: string }>;
 }
 
 // BlogPost component
-export default function BlogPost({ params }: BlogPostProps) {
-  const post = blogPosts[params.id];
+export default async function BlogPost({ params }: PageProps) {
+  // Await the params Promise
+  const { id } = await params;
+  const post = blogPosts[id];
 
   if (!post) return notFound();
 
