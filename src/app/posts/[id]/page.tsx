@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import CommentSection from "@/components/CommentSection";
 
+
 const blogPosts: Record<string, { title: string; content: string; image: string }> = {
   "1": {
     title: "The Future of AI in Web Development",
@@ -16,14 +17,9 @@ const blogPosts: Record<string, { title: string; content: string; image: string 
   },
 };
 
-// ✅ Ensure correct typing for Next.js App Router
-interface BlogPostProps {
-  params: { id?: string }; // Mark `id` as optional to prevent runtime errors
-}
 
-export default function BlogPost({ params }: BlogPostProps) {
-  if (!params?.id) return notFound(); // Ensure params exist and have an `id`
-  
+export default function BlogPost({ params }: { params: { id: string } }) {
+  if (!params?.id) return notFound(); // Ensure params exist
   const post = blogPosts[params.id];
   if (!post) return notFound();
 
