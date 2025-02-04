@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import CommentSection from "@/components/CommentSection";
 
-
+// Sample blog posts data
 const blogPosts: Record<string, { title: string; content: string; image: string }> = {
   "1": {
     title: "The Future of AI in Web Development",
@@ -15,13 +15,18 @@ const blogPosts: Record<string, { title: string; content: string; image: string 
   },
 };
 
+// PageProps type, which should include params (id as a string)
+interface BlogPostProps {
+  params: {
+    id: string;
+  };
+}
 
-export default function BlogPost({ params }: { params: { id: string } }) {
-  if (!params?.id || !blogPosts[params.id]) {
-    return notFound();
-  }
-
+// BlogPost component with correct types for params
+export default function BlogPost({ params }: BlogPostProps) {
   const post = blogPosts[params.id];
+  
+  if (!post) return notFound();
 
   return (
     <div className="p-10">
