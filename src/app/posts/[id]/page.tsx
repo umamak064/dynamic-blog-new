@@ -5,23 +5,23 @@ import CommentSection from "@/components/CommentSection";
 const blogPosts: Record<string, { title: string; content: string; image: string }> = {
   "1": {
     title: "The Future of AI in Web Development",
-    content:
-      "Artificial Intelligence is transforming web development. From AI-powered chatbots to automated UI generation, the impact is massive. Companies are leveraging AI to create smarter, more personalized experiences.",
+    content: "Artificial Intelligence is transforming web development. From AI-powered chatbots to automated UI generation, the impact is massive.",
     image: "/img1.jpeg",
   },
   "2": {
     title: "Why TypeScript is Essential for Modern Apps",
-    content:
-      "TypeScript has become a game-changer in modern app development. It provides static typing, improves code maintainability, and catches errors early in development, making it a must-have for scalable projects.",
+    content: "TypeScript has become a game-changer in modern app development. It provides static typing, improves code maintainability, and catches errors early in development.",
     image: "/img2.png",
   },
 };
 
 
 export default function BlogPost({ params }: { params: { id: string } }) {
-  if (!params?.id) return notFound(); // Ensure params exist
+  if (!params?.id || !blogPosts[params.id]) {
+    return notFound();
+  }
+
   const post = blogPosts[params.id];
-  if (!post) return notFound();
 
   return (
     <div className="p-10">
